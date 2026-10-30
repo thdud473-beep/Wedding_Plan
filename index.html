@@ -204,58 +204,59 @@ ul.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
 .msec .link{align-self:flex-start}
 </style>
 
-<div class="wrap" id="app"></div>
+<div class="wrap" id="app" style="display:none"></div>
 <div class="toast" id="toast" role="status" hidden></div>
-
+<div id="login-gate" style="min-height:75vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+  <form id="firebase-login" style="width:100%;max-width:360px;padding:24px;border:1px solid #eadfe3;border-radius:18px;background:#fff;box-shadow:0 8px 30px #0000000a;display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:25px;text-align:center">🤵‍♂️ 승현 ❤️ 소영 👰‍♀️</div>
+    <h2 style="margin:4px 0;text-align:center;font-size:20px">우리의 웨딩 플래너</h2>
+    <p style="margin:0 0 8px;text-align:center;color:#777;font-size:13px">등록된 계정으로 로그인해 주세요.</p>
+    <label style="font-size:13px">이메일<input id="login-email" type="email" autocomplete="username" required style="display:block;box-sizing:border-box;width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-top:5px"></label>
+    <label style="font-size:13px">비밀번호<input id="login-password" type="password" autocomplete="current-password" required style="display:block;box-sizing:border-box;width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-top:5px"></label>
+    <button type="submit" style="padding:12px;border:0;border-radius:9px;background:#292929;color:white;font-weight:700">로그인</button>
+    <p id="login-error" role="alert" style="margin:0;color:#b42318;font-size:13px"></p>
+  </form>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
-/* Standalone web storage adapter: replaces the embedded-host database with localStorage. */
+/* Firebase adapter: authenticated access + realtime Firestore. */
 (function(){
   "use strict";
   var KEY="seoyeong-wedding-planner-v1";
-  function decodeShare(){
-    try{
-      var p=new URLSearchParams(location.search).get("weddingData");
-      if(!p)return null;
-      var b=p.replace(/-/g,"+").replace(/_/g,"/");
-      var raw=decodeURIComponent(Array.prototype.map.call(atob(b),function(c){
-        return "%"+("00"+c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(""));
-      return JSON.parse(raw);
-    }catch(e){return null;}
-  }
-  var incoming=decodeShare();
-  var state={settings:{},items:{},budget:{}};
-  try{state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){}
-  if(incoming && incoming.version===1 && incoming.data){
-    state={settings:incoming.data.settings||{},items:incoming.data.items||{},budget:incoming.data.budget||{}};
-    try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
-  }
-  var listeners={settings:[],items:[],budget:[]};
-  function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){alert("저장 공간이 부족합니다. 백업 파일을 내려받아 주세요.");}}
-  function notify(coll){
-    (listeners[coll]||[]).forEach(function(fn){
-      if(coll==="settings")fn({exists:true,data:function(){return state.settings||{};}});
-      else fn({docs:Object.keys(state[coll]||{}).map(function(id){return {id:id,data:function(){return state[coll][id]||{};}};})});
-    });
-  }
-  window.addEventListener("storage",function(e){if(e.key===KEY){try{state=JSON.parse(e.newValue||"{}");["settings","items","budget"].forEach(notify);}catch(_){}}});
-  var db={
-    doc:function(path){
-      var parts=path.split("/"),coll=parts[0],id=parts[1];
-      return {
-        set:function(value){state[coll]=state[coll]||{};if(coll==="settings")state.settings=Object.assign({},value);else state[coll][id]=Object.assign({},value);persist();notify(coll);return Promise.resolve();},
-        delete:function(){if(state[coll])delete state[coll][id];persist();notify(coll);return Promise.resolve();},
-        onSnapshot:function(fn){if(coll==="settings")fn({exists:true,data:function(){return state.settings||{};}});return function(){};}
-      };
-    },
-    collection:function(coll){
-      return {onSnapshot:function(fn){listeners[coll].push(fn);notify(coll);return function(){listeners[coll]=listeners[coll].filter(function(x){return x!==fn;});};}};
+  var firebaseConfig={
+    apiKey:"AIzaSyD9iewee_XnWdN1REsB4DoGPEDxXe8Tk9w",
+    authDomain:"wedding-plan-af7bc.firebaseapp.com",
+    projectId:"wedding-plan-af7bc",
+    storageBucket:"wedding-plan-af7bc.firebasestorage.app",
+    messagingSenderId:"390463838226",
+    appId:"1:390463838226:web:3d9ed9c3b32d03ebef60cb"
+  };
+  var ADMIN_UID="NIAQS7NOHQT7Zvpriw6ftWnmBdJ3";
+  var gate=document.getElementById("login-gate"), app=document.getElementById("app"), form=document.getElementById("firebase-login");
+  var authReadyResolve;var authReady=new Promise(function(r){authReadyResolve=r;});
+  var appInstance=firebase.initializeApp(firebaseConfig),auth=appInstance.auth(),firestore=appInstance.firestore();
+  window.claude={
+    use:async function(kind){
+      var user=await authReady;
+      if(kind==="db")return firestore;
+      if(kind==="user")return {can:async function(permission){return !!user&&user.uid===ADMIN_UID&&permission==="data.write";}};
+      return null;
     }
   };
-  window.claude={
-    use:async function(kind){if(kind==="db")return db;if(kind==="user")return {can:async function(){return true;}};return null;}
-  };
+  form.addEventListener("submit",function(e){
+    e.preventDefault();var msg=document.getElementById("login-error");msg.textContent="로그인 중…";
+    auth.signInWithEmailAndPassword(document.getElementById("login-email").value.trim(),document.getElementById("login-password").value)
+      .then(function(){msg.textContent="";})
+      .catch(function(err){msg.textContent=err.code==="auth/invalid-credential"?"이메일 또는 비밀번호를 확인해 주세요.":"로그인하지 못했어요. 입력 내용을 확인해 주세요.";});
+  });
+  auth.onAuthStateChanged(function(user){
+    if(user){gate.style.display="none";app.style.display="block";}
+    else{gate.style.display="flex";app.style.display="none";}
+    if(!window.__weddingAuthResolved){window.__weddingAuthResolved=true;authReadyResolve(user||null);}
+  });
 })();
 
 /* Standalone web utilities: shareable snapshot URL and JSON backup/restore. */
@@ -1022,6 +1023,21 @@ renderAll();
   try{
     if(user&&typeof user.can==="function"){var c=await user.can("data.write");if(c===false)S.canWrite=false;}
   }catch(_){}
+  /* Import this browser's previous local data only when Firestore is completely empty. */
+  if(S.canWrite){
+    try{
+      var old=JSON.parse(localStorage.getItem("seoyeong-wedding-planner-v1")||"null");
+      if(old){
+        var checks=await Promise.all([db.doc("settings/main").get(),db.collection("items").limit(1).get(),db.collection("budget").limit(1).get()]);
+        if(!checks[0].exists&&checks[1].empty&&checks[2].empty){
+          var batch=db.batch();
+          if(old.settings&&Object.keys(old.settings).length)batch.set(db.doc("settings/main"),old.settings);
+          ["items","budget"].forEach(function(coll){Object.keys(old[coll]||{}).forEach(function(id){batch.set(db.doc(coll+"/"+id),old[coll][id]);});});
+          await batch.commit();
+        }
+      }
+    }catch(e){console.warn("기존 브라우저 데이터 자동 이전을 건너뛰었습니다.",e);}
+  }
   readyResolve();
   function err(){S.dbState="none";renderAll();}
   db.doc("settings/main").onSnapshot(function(s){S.settings=s.exists?(s.data()||{}):{};renderAll();},err);
