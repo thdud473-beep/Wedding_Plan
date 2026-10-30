@@ -202,13 +202,77 @@ ul.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
 .ic:disabled{opacity:.4;cursor:not-allowed}
 .madd{display:flex;gap:8px;align-items:center;padding-top:8px;border-top:1px solid var(--line)}
 .msec .link{align-self:flex-start}
+
+/* Minimal monochrome refresh + mobile-first touch layout. */
+:root{
+  --accent:#55585D;--accent-fg:#FFFFFF;--accent-soft:#F1F1F0;--accent-ink:#42454A;
+  --brand:#4A4D52;--pick:#65686D;--pick-fg:#FFFFFF;--pick-soft:#F0F0EF;
+  --ok:#62666B;--warn:#8A6258;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --accent:#D1D3D5;--accent-fg:#202226;--accent-soft:#292C30;--accent-ink:#E0E2E4;
+    --brand:#E0E2E4;--pick:#B8BBC0;--pick-fg:#202226;--pick-soft:#303338;
+    --ok:#AEB3B8;--warn:#E0A18F;
+  }
+}
+:root[data-theme="dark"]{
+  --accent:#D1D3D5;--accent-fg:#202226;--accent-soft:#292C30;--accent-ink:#E0E2E4;
+  --brand:#E0E2E4;--pick:#B8BBC0;--pick-fg:#202226;--pick-soft:#303338;
+  --ok:#AEB3B8;--warn:#E0A18F;
+}
+body{padding-top:max(18px,env(safe-area-inset-top,0px));}
+.wrap{max-width:900px;gap:18px;}
+.notice,.addbox,ul.list,.sum>div,.brow,.board,.manage,.nbox,.nview,.empty,.phase .empty,
+.task,.tabs,.mast,.filters{border-radius:18px;}
+.notice,.addbox,.sum>div,.brow,.board,.manage,.nbox,.nview,.empty,ul.list{
+  box-shadow:0 5px 20px rgba(20,20,20,.045);
+}
+ul.list{border-radius:18px;}
+.task:first-child .trow{border-radius:18px 18px 0 0;}
+.task:last-child .trow{border-radius:0 0 18px 18px;}
+.sum>div,.brow,.addbox,.manage{padding:16px;}
+.btn,.btn.ghost,.pickbtn,.ic,select,.seg{border-radius:12px;}
+input,textarea,select{font-size:16px;}
+#firebase-login{border-radius:24px!important;box-shadow:0 12px 36px rgba(0,0,0,.08)!important;}
+#firebase-login>div{font-weight:800!important;}
+@media(max-width:600px){
+  body{font-size:15px;padding:14px 12px calc(34px + env(safe-area-inset-bottom,0px));}
+  .wrap{width:100%;gap:14px;}
+  .mast{grid-template-columns:1fr;gap:10px;padding:16px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:0 5px 20px rgba(20,20,20,.045);}
+  .count b{font-size:clamp(42px,15vw,58px);}
+  .prog{grid-column:auto;}
+  .tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:0 8px;}
+  .tabs a{flex:1;text-align:center;padding:12px 8px;}
+  .filters{gap:7px;}
+  .filters>*{max-width:100%;}
+  .filters .spacer{display:none;}
+  .filters select{flex:1 1 42%;min-width:0;}
+  .filters .btn{flex:1 1 auto;}
+  .phase{gap:7px;}
+  .ph .pt{font-size:18px;}
+  .trow{padding:14px 13px;gap:11px;}
+  .detail{padding:0 13px 14px 46px;}
+  .egrid,.bgrid{grid-template-columns:1fr 1fr;}
+  .sum{grid-template-columns:1fr 1fr;}
+  .mrow{align-items:flex-start;flex-direction:column;}
+  .mbt{width:100%;justify-content:flex-end;}
+  .madd{align-items:stretch;flex-direction:column;}
+  .madd .btn{width:100%;}
+  #login-gate{min-height:calc(100dvh - 32px)!important;padding:18px!important;}
+  #firebase-login{padding:24px 20px!important;max-width:420px!important;}
+  #firebase-login>div{font-size:24px!important;}
+  #firebase-login input,#firebase-login button{min-height:48px;}
+}
+@media(max-width:360px){.sum,.egrid,.bgrid{grid-template-columns:1fr;}.filters .btn{flex-basis:100%;}}
+
 </style>
 
 <div class="wrap" id="app" style="display:none"></div>
 <div class="toast" id="toast" role="status" hidden></div>
 <div id="login-gate" style="min-height:75vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif">
   <form id="firebase-login" style="width:100%;max-width:360px;padding:24px;border:1px solid #eadfe3;border-radius:18px;background:#fff;box-shadow:0 8px 30px #0000000a;display:flex;flex-direction:column;gap:12px">
-    <div style="font-size:25px;text-align:center"><b>🤵‍♂️ 승현 ❤️ 소영 👰‍♀️</b></div>
+    <div style="font-size:25px;text-align:center;font-weight:800;letter-spacing:-.04em">🤵‍♂️ 승현 <span aria-hidden="true">♥</span> 소영 👰‍♀️</div>
     <label style="font-size:13px">이메일<input id="login-email" type="email" autocomplete="username" required style="display:block;box-sizing:border-box;width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-top:5px"></label>
     <label style="font-size:13px">비밀번호<input id="login-password" type="password" autocomplete="current-password" required style="display:block;box-sizing:border-box;width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-top:5px"></label>
     <button type="submit" style="padding:12px;border:0;border-radius:9px;background:#292929;color:white;font-weight:700">로그인</button>
