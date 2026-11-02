@@ -10,6 +10,78 @@
 @media(max-width:480px){.web-tools{align-items:flex-start;flex-direction:column}.web-actions{width:100%;justify-content:stretch}.web-actions button{flex:1}}
 </style>
 
+
+<style id="pastel-toss-refresh">
+:root{color-scheme:light!important;--bg:#F6F7FC;--surface:#FFFFFF;--fg:#26324A;--muted:#7B8498;--line:#DDDDDD;--line-strong:#D8DDE8;--accent:#718CEB;--accent-fg:#FFFFFF;--accent-soft:#EEF1FF;--accent-ink:#657FE0;--brand:#657FE0;--pick:#A88AE8;--pick-fg:#FFFFFF;--pick-soft:#F2ECFF;--ok:#8BBEAA;--warn:#D49A62}
+:root[data-theme="dark"]{color-scheme:light!important;--bg:#F6F7FC;--surface:#FFFFFF;--fg:#26324A;--muted:#7B8498;--line:#DDDDDD;--line-strong:#D8DDE8;--accent:#718CEB;--accent-fg:#FFFFFF;--accent-soft:#EEF1FF;--accent-ink:#657FE0;--brand:#657FE0;--pick:#A88AE8;--pick-fg:#FFFFFF;--pick-soft:#F2ECFF;--ok:#8BBEAA;--warn:#D49A62}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:light!important}}
+body{background:linear-gradient(180deg,#F7F8FD 0%,#F5F6FB 100%)!important;color:#26324A!important;padding-top:22px}
+.wrap{gap:20px;max-width:780px}
+.mast{border-bottom:0!important;padding:18px 20px 20px!important;background:linear-gradient(135deg,#EAF0FF 0%,#F2EDFF 100%);border-radius:24px;box-shadow:0 8px 24px rgba(74,91,145,.09)}
+.count b{color:#657FE0!important}
+.prog .bar{background:#DCE4FA}.prog .bar>i{background:linear-gradient(90deg,#829BF2,#B39AEF)}
+.notice,.addbox,.brow,.nbox,.nview,.board,.manage,.msec,.list,.sum,.bvals,.web-tools{border:0!important;box-shadow:0 5px 18px rgba(42,58,100,.075)!important;background:#FFFFFF!important;border-radius:18px!important}
+.tabs{border:0!important;gap:8px;padding:4px;background:#ECEFF8;border-radius:14px}
+.tabs a{border:0!important;border-radius:11px;margin:0!important;padding:10px 17px!important}
+.tabs a[aria-current=page]{background:#FFFFFF!important;color:#657FE0!important;box-shadow:0 2px 8px rgba(45,60,100,.10);}
+.seg{border:0!important;background:#EEF1F8;border-radius:12px;padding:3px}
+.seg button+button{border:0!important}.seg button[aria-pressed=true]{background:#718CEB!important;color:#fff!important;border-radius:9px}
+.btn{background:#718CEB!important;color:#fff!important;border:0!important;border-radius:12px!important;box-shadow:0 4px 10px rgba(93,119,218,.2)}
+.btn.ghost{background:#F0EDFF!important;color:#806ACB!important;border:0!important;box-shadow:none}
+select,input,textarea{border-color:#D8DDE8!important;border-radius:11px!important;background-color:#FBFCFF!important}
+.addbox{padding:17px!important}.addbox input,.addbox select,.brow input,.detail textarea,.detail input{background:#F8F9FD!important;border:1px solid #E1E5EF!important}
+.phase{gap:10px}.ph{padding:10px 5px!important}.ph .pt{color:#34415E}.badge,.editflag{background:#EEF0FF!important;color:#7184D5!important}
+ul.list{overflow:visible!important;padding:5px 12px!important}
+.task+.task{border-top:0!important;position:relative}.task+.task:before{content:"";position:absolute;top:0;left:48px;right:12px;height:1px;background:#DDDDDD}
+.trow{padding:14px 7px!important}.detail{padding-left:42px!important}
+.brow{padding:15px!important;gap:12px!important}.brow+.brow{margin-top:10px}
+.sum{padding:16px!important}.sum-left{background:#EEF1FF!important;border-radius:14px;padding:12px!important}
+.brow.is-paid,.brow.paid{background:#F5F5F5!important;color:#999!important;box-shadow:none!important}
+.web-tools{margin-top:18px;padding:16px!important}.web-actions button{border:0!important;border-radius:12px!important;background:#EEF1FF!important;color:#657FE0!important}.web-actions button:first-child{background:#718CEB!important;color:#fff!important}
+.ck{border-color:#AEBBEA!important}.ck:checked{background:#718CEB!important;border-color:#718CEB!important}
+@media(min-width:700px){body{padding-top:34px}.wrap{gap:24px}.mast{padding:24px 28px!important}.addbox,.sum{padding:20px!important}.brow{padding:18px!important}}
+</style>
+<style id="pastel-detail-tweaks-2">
+/* 요청한 세부 UI 조정 */
+.task+.task:before{background:#eeeeee!important}
+.sum>div{border:0!important;outline:0!important}
+.sum .sum-left{border:0!important;box-shadow:none!important}
+.sum .sum-left b{color:#806ACB!important}
+.brow .bvals{box-shadow:none!important;border:0!important;outline:0!important}
+.brow.is-paid,.brow.is-paid input{background:#ECEFF8!important}
+.brow.is-paid{border:0!important;box-shadow:none!important}
+</style>
+
+<style id="pastel-detail-tweaks-3">
+/* 1) 메모 개수 배지 */
+.memo-badge{display:inline-flex;align-items:center;margin-left:4px;padding:3px 8px;border-radius:999px;background:#EEF1FF!important;color:#657FE0!important;font-size:11px;font-weight:700;line-height:1.35;white-space:nowrap}
+/* 2) 완료한 할 일은 흐리게, 체크/편집 동작은 그대로 */
+.task.done>.trow{opacity:.5}
+/* 3) 상세 메모 카드: 그림자 제거, 넉넉한 여백과 연한 배경 */
+.detail .nbox,.detail .nview{background:#F7F8FA!important;box-shadow:none!important;border:0!important;border-radius:14px!important;padding:16px!important;margin:4px 0!important}
+.detail .nbox.picked,.detail .nview.picked{outline:1.5px solid #B39AEF!important;outline-offset:0;background:#F7F8FA!important}
+.detail .nl{display:none!important}
+.pickbtn,.pickflag{background:#F1ECFF!important;color:#B39AEF!important;border-color:transparent!important}
+.pickbtn[aria-pressed="true"]{background:#B39AEF!important;color:#fff!important}
+.pick{color:#718CEB!important;font-weight:650}
+.nview.picked .nvt,.nview.picked .nvh strong{color:#718CEB!important}
+/* 4) 예산 요약 카드의 그림자와 테두리 제거 */
+.sum>div{box-shadow:none!important;border:0!important}
+/* 5) 결제 완료 예산 항목은 현재 톤을 유지하면서 반투명 처리 */
+.brow.is-paid{background:#ECEFF8!important;opacity:.5}
+.brow.is-paid input{background:#ECEFF8!important}
+/* 6) 계획 비율 막대 대신 도넛형 파이 그래프 */
+.budget-pie-wrap{display:flex;align-items:center;justify-content:center;gap:16px;margin:12px auto 18px;padding:10px 14px}
+.budget-pie{width:104px;height:104px;flex:0 0 104px;border-radius:50%;display:grid;place-items:center;position:relative}
+.budget-pie:before{content:"";position:absolute;inset:13px;border-radius:50%;background:#fff}
+.budget-pie span{position:relative;z-index:1;font-weight:750;font-size:18px;color:#657FE0}
+.pie-legend{display:flex;flex-direction:column;gap:8px;font-size:12px;color:#7B8498}
+.pie-legend span{display:flex;align-items:center;gap:7px}
+.pie-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.planned-dot{background:#829BF2}.remain-dot{background:#E9EAF4}
+@media(max-width:420px){.budget-pie{width:88px;height:88px;flex-basis:88px}.budget-pie:before{inset:11px}.budget-pie-wrap{gap:12px}}
+</style>
+
 </head><body>
 <title>🤵‍♂️승현❤️소영👰‍♀️</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -664,11 +736,11 @@ function nav(){
   return '<nav class="tabs" aria-label="화면 선택"><a href="#tasks"'+(S.tab==="tasks"?' aria-current="page"':"")+'>할 일</a><a href="#budget"'+(S.tab==="budget"?' aria-current="page"':"")+'>예산</a></nav>';
 }
 function notesHtml(t){
-  var h='<div class="notes"><span class="nl">업체·메모</span>';
+  var h='<div class="notes">';
   t.notes.forEach(function(n,ni){
     var k=t.id+"-"+n.id;
     h+='<div class="nbox'+(n.picked?' picked':'')+'"><div class="nhead"><input type="text" id="nn-'+k+'" data-act="n-name" data-id="'+t.id+'" data-nid="'+esc(n.id)+'" value="'+esc(n.name||"")+'" placeholder="업체 이름 또는 제목" aria-label="업체 이름 또는 제목" autocomplete="off" '+dis()+'>'+
-      '<button type="button" class="pickbtn" data-act="n-pick" data-id="'+t.id+'" data-nid="'+esc(n.id)+'" aria-pressed="'+(!!n.picked)+'" '+dis()+'>최종 선택</button></div>'+
+      '<button type="button" class="pickbtn" data-act="n-pick" data-id="'+t.id+'" data-nid="'+esc(n.id)+'" aria-pressed="'+(!!n.picked)+'" '+dis()+'>최종</button></div>'+
       '<textarea id="nt-'+k+'" data-act="n-text" data-id="'+t.id+'" data-nid="'+esc(n.id)+'" rows="3" placeholder="견적, 연락처, 장단점, 상담 일정 등" aria-label="메모" '+dis()+'>'+esc(n.text||"")+'</textarea>'+
       '<div class="drow"><button type="button" class="ic" data-act="n-up" data-id="'+t.id+'" data-nid="'+esc(n.id)+'" aria-label="하위 항목 위로" '+((ni===0||dis())?"disabled":"")+'>▲</button>'+
       '<button type="button" class="ic" data-act="n-down" data-id="'+t.id+'" data-nid="'+esc(n.id)+'" aria-label="하위 항목 아래로" '+((ni===t.notes.length-1||dis())?"disabled":"")+'>▼</button>'+
@@ -679,8 +751,8 @@ function notesHtml(t){
 }
 function notesView(t){
   if(!t.notes.length)return '<p class="hint">아직 메모가 없어요. 수정을 눌러 업체나 메모를 추가해 보세요.</p>';
-  return '<div class="notes"><span class="nl">업체·메모</span>'+t.notes.map(function(n){
-    return '<div class="nview'+(n.picked?' picked':'')+'"><div class="nvh"><strong>'+esc(n.name||"이름 없음")+'</strong>'+(n.picked?'<span class="pickflag">최종 선택</span>':'')+'</div>'+(n.text?'<p class="nvt">'+esc(n.text)+'</p>':'')+'</div>';
+  return '<div class="notes">'+t.notes.map(function(n){
+    return '<div class="nview'+(n.picked?' picked':'')+'"><div class="nvh"><strong>'+esc(n.name||"이름 없음")+'</strong>'+(n.picked?'<span class="pickflag">최종</span>':'')+'</div>'+(n.text?'<p class="nvt">'+esc(n.text)+'</p>':'')+'</div>';
   }).join("")+'</div>';
 }
 function taskRow(t,wd,mv){
@@ -689,7 +761,7 @@ function taskRow(t,wd,mv){
   var dl=cd||(wd?deadline(wd,t.m):null);
   var late=dl&&!t.done&&dl<today();
   var due=cd?fmt(cd)+"까지":(dl?(t.m===0?"예식 당일":fmt(dl)+"까지"):monthLabel(t.m));
-  var meta=esc(catName(t.cat))+(t.who?" · "+esc(t.who):"")+" · "+(late?'<span class="late">'+due+" · 기한 지남</span>":due)+(t.notes.length?" · 메모 "+t.notes.length:"");
+  var meta=esc(catName(t.cat))+(t.who?" · "+esc(t.who):"")+" · "+(late?'<span class="late">'+due+" · 기한 지남</span>":due)+(t.notes.length?' <span class="memo-badge">메모 ' +t.notes.length+'개</span>':"");
   var pk=t.notes.filter(function(n){return n.picked;});
   if(pk.length)meta+=' · <span class="pick">'+esc(pk.map(function(n){return n.name||(n.text||"").split("\n")[0].slice(0,24)||"이름 없음";}).join(", "))+'</span>';
   var h='<li class="task'+(t.done?" done":"")+'">'+
@@ -878,7 +950,7 @@ function budgetView(){
     '<div><small>총 예산 (만원)</small><input type="number" inputmode="numeric" min="0" id="b-total" data-act="b-total" value="'+esc(total==null?"":total)+'" placeholder="예: 5000" '+dis()+'></div>'+
     '<div><small>계획</small><b>'+num(planned)+'만원</b></div>'+
     '<div><small>지출</small><b>'+num(spent)+'만원</b>'+(parts.length?'<span class="sub-s">'+parts.join(" · ")+'</span>':"")+'</div></div>';
-  if(total)h+='<div class="bgbar'+(over?" over":"")+'" role="img" aria-label="총예산 대비 계획 합계 '+pct+'%"><i style="width:'+pct+'%"></i></div>';
+  if(total)h+='<div class="budget-pie-wrap"><div class="budget-pie" role="img" aria-label="총예산 대비 계획 합계 '+pct+'%" style="background:conic-gradient(#829BF2 0 '+pct+'%, #E9EAF4 '+pct+'% 100%)"><span>'+pct+'%</span></div><div class="pie-legend"><span><i class="planned-dot"></i>계획 '+num(planned)+'만원</span><span><i class="remain-dot"></i>미계획 '+num(Math.max(0,Number(total)-planned))+'만원</span></div></div>';
   if(!rows.length){
     h+='<div class="empty">아직 예산 항목이 없어요. 기본 항목을 불러오거나 직접 추가해 보세요.<br><br><button type="button" class="btn" data-act="b-defaults" '+dis()+'>기본 항목 불러오기</button></div>';
   }else{
