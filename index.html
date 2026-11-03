@@ -59,6 +59,9 @@ ul.list{overflow:visible!important;padding:5px 12px!important}
 .task.done>.trow{opacity:.5}
 /* 3) 상세 메모 카드: 그림자 제거, 넉넉한 여백과 연한 배경 */
 .detail .nbox,.detail .nview{background:#F7F8FA!important;box-shadow:none!important;border:0!important;border-radius:14px!important;padding:16px!important;margin:4px 0!important}
+/* 상세 항목 배경 박스 사이 간격을 기존 10px에서 절반인 5px로 축소 */
+.detail .notes{gap:5px!important}
+.detail .nbox+.nbox,.detail .nbox+.nview,.detail .nview+.nbox,.detail .nview+.nview{margin-top:0!important}
 .detail .nbox.picked,.detail .nview.picked{outline:1.5px solid #B39AEF!important;outline-offset:0;background:#F7F8FA!important}
 .detail .nl{display:none!important}
 .pickbtn,.pickflag{background:#F1ECFF!important;color:#B39AEF!important;border-color:transparent!important}
@@ -1208,4 +1211,18 @@ renderAll();
 })();
 </script>
 
+<style id="pastel-dark-mode-fix">
+:root[data-theme="dark"]{color-scheme:dark!important;--bg:#171A24;--surface:#222635;--fg:#EEF0F8;--muted:#A8AEC2;--line:#3A4052;--line-strong:#4A5268;--accent:#9BAEFF;--accent-fg:#171A24;--accent-soft:#2A3150;--accent-ink:#AFC0FF;--brand:#AFC0FF;--pick:#C2A8F4;--pick-fg:#211A30;--pick-soft:#352B4B;--ok:#9BCDB8;--warn:#E5B27F}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark!important;--bg:#171A24;--surface:#222635;--fg:#EEF0F8;--muted:#A8AEC2;--line:#3A4052;--line-strong:#4A5268;--accent:#9BAEFF;--accent-fg:#171A24;--accent-soft:#2A3150;--accent-ink:#AFC0FF;--brand:#AFC0FF;--pick:#C2A8F4;--pick-fg:#211A30;--pick-soft:#352B4B;--ok:#9BCDB8;--warn:#E5B27F}}
+:root[data-theme="dark"] body{background:linear-gradient(180deg,#1A1E2A,#171A24)!important;color:#EEF0F8!important}
+:root[data-theme="dark"] .notice,:root[data-theme="dark"] .addbox,:root[data-theme="dark"] .brow,:root[data-theme="dark"] .nbox,:root[data-theme="dark"] .nview,:root[data-theme="dark"] .board,:root[data-theme="dark"] .manage,:root[data-theme="dark"] .msec,:root[data-theme="dark"] .list,:root[data-theme="dark"] .sum,:root[data-theme="dark"] .bvals,:root[data-theme="dark"] .web-tools,:root[data-theme="dark"] .sum>div,:root[data-theme="dark"] ul.list{background:#222635!important;color:#EEF0F8!important;border-color:#3A4052!important;box-shadow:0 5px 20px rgba(0,0,0,.20)!important}
+:root[data-theme="dark"] .mast{background:linear-gradient(135deg,#293451,#342C49)!important;color:#F1F2FA!important;box-shadow:0 8px 24px rgba(0,0,0,.24)!important}
+:root[data-theme="dark"] .tabs{background:#2B3041!important}:root[data-theme="dark"] .tabs a{color:#C7CBE0!important}
+:root[data-theme="dark"] input,:root[data-theme="dark"] select,:root[data-theme="dark"] textarea{background:#191E2B!important;color:#EEF0F8!important;border-color:#46506A!important;color-scheme:dark}
+:root[data-theme="dark"] .task,:root[data-theme="dark"] .trow{background:transparent!important;color:#EEF0F8!important}
+:root[data-theme="dark"] .task.done,:root[data-theme="dark"] .is-paid{background:#2A3040!important;color:#9CA4BA!important}
+:root[data-theme="dark"] .web-actions button{background:#30374B!important;color:#EEF0F8!important;border-color:#4A5268!important}:root[data-theme="dark"] .web-actions button:first-child{background:#AFC0FF!important;color:#171A24!important;border-color:#AFC0FF!important}
+:root[data-theme="dark"] #firebase-login{background:#222635!important;color:#EEF0F8!important;border-color:#46506A!important}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background:linear-gradient(180deg,#1A1E2A,#171A24)!important;color:#EEF0F8!important}:root:not([data-theme="light"]) .notice,:root:not([data-theme="light"]) .addbox,:root:not([data-theme="light"]) .brow,:root:not([data-theme="light"]) .nbox,:root:not([data-theme="light"]) .nview,:root:not([data-theme="light"]) .board,:root:not([data-theme="light"]) .manage,:root:not([data-theme="light"]) .msec,:root:not([data-theme="light"]) .list,:root:not([data-theme="light"]) .sum,:root:not([data-theme="light"]) .bvals,:root:not([data-theme="light"]) .web-tools,:root:not([data-theme="light"]) .sum>div,:root:not([data-theme="light"]) ul.list{background:#222635!important;color:#EEF0F8!important;border-color:#3A4052!important;box-shadow:0 5px 20px rgba(0,0,0,.20)!important}:root:not([data-theme="light"]) .mast{background:linear-gradient(135deg,#293451,#342C49)!important;color:#F1F2FA!important}:root:not([data-theme="light"]) .tabs{background:#2B3041!important}:root:not([data-theme="light"]) .tabs a{color:#C7CBE0!important}:root:not([data-theme="light"]) input,:root:not([data-theme="light"]) select,:root:not([data-theme="light"]) textarea{background:#191E2B!important;color:#EEF0F8!important;border-color:#46506A!important;color-scheme:dark}:root:not([data-theme="light"]) .task,:root:not([data-theme="light"]) .trow{background:transparent!important;color:#EEF0F8!important}:root:not([data-theme="light"]) .task.done,:root:not([data-theme="light"]) .is-paid{background:#2A3040!important;color:#9CA4BA!important}:root:not([data-theme="light"]) #firebase-login{background:#222635!important;color:#EEF0F8!important;border-color:#46506A!important}}
+</style>
 </body></html>
