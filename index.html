@@ -85,6 +85,116 @@ ul.list{overflow:visible!important;padding:5px 12px!important}
 @media(max-width:420px){.budget-pie{width:88px;height:88px;flex-basis:88px}.budget-pie:before{inset:11px}.budget-pie-wrap{gap:12px}}
 </style>
 
+
+<style id="dark-mode-refinement-2026">
+/* Dark mode refinement: keep the light theme untouched */
+:root[data-theme="dark"] {
+  color-scheme: dark !important;
+  --bg:#17191F !important;
+  --surface:#22252D !important;
+  --fg:#F0F1F4 !important;
+  --muted:#A8ADB8 !important;
+  --line:#333333 !important;
+  --line-strong:#454A55 !important;
+  --accent:#9EAEF5 !important;
+  --accent-fg:#17191F !important;
+  --accent-soft:#2B3040 !important;
+  --accent-ink:#B8C4FF !important;
+  --brand:#B8C4FF !important;
+  --pick:#C2A8F4 !important;
+  --pick-fg:#201A2B !important;
+  --pick-soft:#352D43 !important;
+  --ok:#9BCDB8 !important;
+  --warn:#E4B17C !important;
+}
+:root[data-theme="dark"] body {
+  background:#17191F !important;
+  color:#F0F1F4 !important;
+}
+:root[data-theme="dark"] :is(.notice,.addbox,.brow,.nbox,.nview,.board,.manage,.msec,.list,.sum,.bvals,.web-tools,.sum>div,ul.list,.detail,.empty,.phase .empty) {
+  background:#22252D !important;
+  color:#F0F1F4 !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+}
+:root[data-theme="dark"] .mast {
+  background:linear-gradient(135deg,#292E3B 0%,#302B3B 100%) !important;
+  color:#F3F4F7 !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+:root[data-theme="dark"] :is(.tabs,.seg) {background:#22252D !important;border:0 !important;box-shadow:none !important}
+:root[data-theme="dark"] :is(.tabs a,.tabs button,.seg button) {color:#C6CBD5 !important}
+:root[data-theme="dark"] :is(.tabs [aria-current="page"],.tabs .active,.seg button[aria-pressed="true"]) {background:#343A4A !important;color:#E7EBFF !important}
+:root[data-theme="dark"] :is(.ph,.ph .pt,.ph .ps,.ttl,.ttl .t,.ttl .meta,.detail label,.hint,.count,.cnt,.pn,.label,.field-label) {color:#F0F1F4 !important}
+:root[data-theme="dark"] :is(.ph .ps,.ttl .meta,.detail label,.hint,.muted,.notes .nl) {color:#A8ADB8 !important}
+:root[data-theme="dark"] :is(.badge,.editflag) {background:#303647 !important;color:#BFCBFF !important;border:0 !important}
+:root[data-theme="dark"] .task+.task:before {background:#333333 !important;height:1px !important}
+:root[data-theme="dark"] :is(.task,.trow) {background:transparent !important;color:#F0F1F4 !important;border:0 !important;box-shadow:none !important}
+:root[data-theme="dark"] .task.done {opacity:.58}
+:root[data-theme="dark"] .task.done .t {color:#A8ADB8 !important}
+:root[data-theme="dark"] :is(input:not([type="checkbox"]),select,textarea) {background:#191C23 !important;color:#F0F1F4 !important;border:1px solid #454A55 !important;box-shadow:none !important;color-scheme:dark}
+:root[data-theme="dark"] input::placeholder,:root[data-theme="dark"] textarea::placeholder {color:#858C99 !important;opacity:1}
+:root[data-theme="dark"] input[type="checkbox"],:root[data-theme="dark"] .ck {
+  appearance:none !important;-webkit-appearance:none !important;
+  width:19px !important;height:19px !important;min-width:19px !important;min-height:19px !important;
+  border:1.5px solid #929DB5 !important;border-radius:5px !important;
+  background:#191C23 !important;display:inline-grid !important;place-content:center !important;
+  margin:2px 10px 0 0 !important;opacity:1 !important;box-shadow:none !important;
+}
+:root[data-theme="dark"] input[type="checkbox"]:checked,:root[data-theme="dark"] .ck:checked {
+  background:#9EAEF5 !important;border-color:#9EAEF5 !important;
+}
+:root[data-theme="dark"] input[type="checkbox"]:checked::after,:root[data-theme="dark"] .ck:checked::after {
+  content:"";width:8px;height:4px;border-left:2px solid #17191F;border-bottom:2px solid #17191F;transform:rotate(-45deg);margin-top:-2px;
+}
+:root[data-theme="dark"] :is(button,a,.btn,.link) {box-shadow:none !important}
+:root[data-theme="dark"] .btn {background:#9EAEF5 !important;color:#17191F !important;border:0 !important}
+:root[data-theme="dark"] .btn.ghost {background:transparent !important;color:#B8C4FF !important;border:1px solid #59627B !important}
+:root[data-theme="dark"] :is(button:disabled,input:disabled,select:disabled,textarea:disabled,[aria-disabled="true"]) {
+  opacity:.42 !important;box-shadow:none !important;outline:0 !important;filter:none !important;
+}
+:root[data-theme="dark"] :is(button:disabled,.btn:disabled) {background:transparent !important;border-color:transparent !important;color:#858C99 !important}
+:root[data-theme="dark"] :is(.brow.is-paid,.brow.paid,.is-paid) {background:#292C34 !important;color:#A8ADB8 !important;box-shadow:none !important;border:0 !important;opacity:.62}
+:root[data-theme="dark"] .sum-left {background:#2B3040 !important;color:#BFCBFF !important;box-shadow:none !important;border:0 !important}
+:root[data-theme="dark"] .sum .sum-left b {color:#B8C4FF !important}
+:root[data-theme="dark"] .web-actions button {background:#303647 !important;color:#BFCBFF !important;border:0 !important}
+:root[data-theme="dark"] .web-actions button:first-child {background:#9EAEF5 !important;color:#17191F !important}
+:root[data-theme="dark"] :focus-visible {outline:2px solid #9EAEF5 !important;outline-offset:2px}
+
+</style>
+
+<style id="user-requested-darkmode-tweaks">
+/* 공통: 메모 개수는 숫자만 표시 */
+.memo-badge{min-width:20px;justify-content:center;padding:2px 6px!important;font-size:11px!important}
+/* 다크 모드 세부 색상 및 요소 정리 */
+:root[data-theme="dark"]{--line:#222635!important;--line-strong:#222635!important}
+:root[data-theme="dark"] .detail{background:#31374D!important;border:0!important;outline:0!important;box-shadow:none!important;border-radius:14px!important}
+:root[data-theme="dark"] .task+.task:before{background:#222635!important}
+:root[data-theme="dark"] .task.done{opacity:1!important;background:transparent!important}
+:root[data-theme="dark"] .task.done .trow,
+:root[data-theme="dark"] .task.done .detail{background:transparent!important}
+:root[data-theme="dark"] .task.done .t,
+:root[data-theme="dark"] .task.done .meta,
+:root[data-theme="dark"] .task.done .ttl{color:#A8AEC2!important}
+:root[data-theme="dark"] .seg{background:#2B3041!important;border:0!important;box-shadow:none!important}
+:root[data-theme="dark"] .seg button{background:transparent!important;color:#A8AEC2!important;border:0!important}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{background:#34415E!important;color:#B8C4FF!important}
+:root[data-theme="dark"] .ph .pt{color:#F0F1F4!important}
+:root[data-theme="dark"] .ph .ps{color:#34415E!important}
+:root[data-theme="dark"] .badge,
+:root[data-theme="dark"] .memo-badge{background:#34415E!important;color:#B8C4FF!important;border:0!important}
+:root[data-theme="dark"] .filters>.btn.ghost,
+:root[data-theme="dark"] .filters button[data-act="toggle-manage"],
+:root[data-theme="dark"] .filters button[data-act="toggle-add"]{background:#34415E!important;color:#B8C4FF!important;border:0!important}
+:root[data-theme="dark"] .brow .detail,
+:root[data-theme="dark"] .brow .bvals,
+:root[data-theme="dark"] .brow .bgrid{box-shadow:none!important}
+:root[data-theme="dark"] .brow,
+:root[data-theme="dark"] .brow *{box-shadow:none!important}
+</style>
+
 </head><body>
 <title>🤵‍♂️승현❤️소영👰‍♀️</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -764,7 +874,7 @@ function taskRow(t,wd,mv){
   var dl=cd||(wd?deadline(wd,t.m):null);
   var late=dl&&!t.done&&dl<today();
   var due=cd?fmt(cd)+"까지":(dl?(t.m===0?"예식 당일":fmt(dl)+"까지"):monthLabel(t.m));
-  var meta=esc(catName(t.cat))+(t.who?" · "+esc(t.who):"")+" · "+(late?'<span class="late">'+due+" · 기한 지남</span>":due)+(t.notes.length?' <span class="memo-badge">메모 ' +t.notes.length+'개</span>':"");
+  var meta=esc(catName(t.cat))+(t.who?" · "+esc(t.who):"")+" · "+(late?'<span class="late">'+due+" · 기한 지남</span>":due)+(t.notes.length?' <span class="memo-badge">' +t.notes.length+'</span>':"");
   var pk=t.notes.filter(function(n){return n.picked;});
   if(pk.length)meta+=' · <span class="pick">'+esc(pk.map(function(n){return n.name||(n.text||"").split("\n")[0].slice(0,24)||"이름 없음";}).join(", "))+'</span>';
   var h='<li class="task'+(t.done?" done":"")+'">'+
