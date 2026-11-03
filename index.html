@@ -54,9 +54,13 @@ ul.list{overflow:visible!important;padding:5px 12px!important}
 
 <style id="pastel-detail-tweaks-3">
 /* 1) 메모 개수 배지 */
-.memo-badge{display:inline-flex;align-items:center;margin-left:4px;padding:3px 8px;border-radius:999px;background:#EEF1FF!important;color:#657FE0!important;font-size:11px;font-weight:700;line-height:1.35;white-space:nowrap}
+/* 메모 숫자 배지: 한 자리/두 자리/세 자리에서도 동일한 높이와 중앙 정렬 */
+.ttl .meta{display:block;min-width:0}
+.ttl .title-line{display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0}
+.ttl .title-line .t{min-width:0}
+.memo-badge{display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;box-sizing:border-box;min-width:24px;height:20px;margin:0;padding:0 6px;border-radius:999px;background:#EEF1FF!important;color:#657FE0!important;font-size:11px;font-weight:700;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
 /* 2) 완료한 할 일은 흐리게, 체크/편집 동작은 그대로 */
-.task.done>.trow{opacity:.5}
+.task.done>.trow{opacity:.7}
 /* 3) 상세 메모 카드: 그림자 제거, 넉넉한 여백과 연한 배경 */
 .detail .nbox,.detail .nview{background:#F7F8FA!important;box-shadow:none!important;border:0!important;border-radius:14px!important;padding:16px!important;margin:4px 0!important}
 /* 상세 항목 배경 박스 사이 간격을 기존 10px에서 절반인 5px로 축소 */
@@ -86,114 +90,9 @@ ul.list{overflow:visible!important;padding:5px 12px!important}
 </style>
 
 
-<style id="dark-mode-refinement-2026">
-/* Dark mode refinement: keep the light theme untouched */
-:root[data-theme="dark"] {
-  color-scheme: dark !important;
-  --bg:#17191F !important;
-  --surface:#22252D !important;
-  --fg:#F0F1F4 !important;
-  --muted:#A8ADB8 !important;
-  --line:#333333 !important;
-  --line-strong:#454A55 !important;
-  --accent:#9EAEF5 !important;
-  --accent-fg:#17191F !important;
-  --accent-soft:#2B3040 !important;
-  --accent-ink:#B8C4FF !important;
-  --brand:#B8C4FF !important;
-  --pick:#C2A8F4 !important;
-  --pick-fg:#201A2B !important;
-  --pick-soft:#352D43 !important;
-  --ok:#9BCDB8 !important;
-  --warn:#E4B17C !important;
-}
-:root[data-theme="dark"] body {
-  background:#17191F !important;
-  color:#F0F1F4 !important;
-}
-:root[data-theme="dark"] :is(.notice,.addbox,.brow,.nbox,.nview,.board,.manage,.msec,.list,.sum,.bvals,.web-tools,.sum>div,ul.list,.detail,.empty,.phase .empty) {
-  background:#22252D !important;
-  color:#F0F1F4 !important;
-  border:0 !important;
-  outline:0 !important;
-  box-shadow:none !important;
-}
-:root[data-theme="dark"] .mast {
-  background:linear-gradient(135deg,#292E3B 0%,#302B3B 100%) !important;
-  color:#F3F4F7 !important;
-  border:0 !important;
-  box-shadow:none !important;
-}
-:root[data-theme="dark"] :is(.tabs,.seg) {background:#22252D !important;border:0 !important;box-shadow:none !important}
-:root[data-theme="dark"] :is(.tabs a,.tabs button,.seg button) {color:#C6CBD5 !important}
-:root[data-theme="dark"] :is(.tabs [aria-current="page"],.tabs .active,.seg button[aria-pressed="true"]) {background:#343A4A !important;color:#E7EBFF !important}
-:root[data-theme="dark"] :is(.ph,.ph .pt,.ph .ps,.ttl,.ttl .t,.ttl .meta,.detail label,.hint,.count,.cnt,.pn,.label,.field-label) {color:#F0F1F4 !important}
-:root[data-theme="dark"] :is(.ph .ps,.ttl .meta,.detail label,.hint,.muted,.notes .nl) {color:#A8ADB8 !important}
-:root[data-theme="dark"] :is(.badge,.editflag) {background:#303647 !important;color:#BFCBFF !important;border:0 !important}
-:root[data-theme="dark"] .task+.task:before {background:#333333 !important;height:1px !important}
-:root[data-theme="dark"] :is(.task,.trow) {background:transparent !important;color:#F0F1F4 !important;border:0 !important;box-shadow:none !important}
-:root[data-theme="dark"] .task.done {opacity:.58}
-:root[data-theme="dark"] .task.done .t {color:#A8ADB8 !important}
-:root[data-theme="dark"] :is(input:not([type="checkbox"]),select,textarea) {background:#191C23 !important;color:#F0F1F4 !important;border:1px solid #454A55 !important;box-shadow:none !important;color-scheme:dark}
-:root[data-theme="dark"] input::placeholder,:root[data-theme="dark"] textarea::placeholder {color:#858C99 !important;opacity:1}
-:root[data-theme="dark"] input[type="checkbox"],:root[data-theme="dark"] .ck {
-  appearance:none !important;-webkit-appearance:none !important;
-  width:19px !important;height:19px !important;min-width:19px !important;min-height:19px !important;
-  border:1.5px solid #929DB5 !important;border-radius:5px !important;
-  background:#191C23 !important;display:inline-grid !important;place-content:center !important;
-  margin:2px 10px 0 0 !important;opacity:1 !important;box-shadow:none !important;
-}
-:root[data-theme="dark"] input[type="checkbox"]:checked,:root[data-theme="dark"] .ck:checked {
-  background:#9EAEF5 !important;border-color:#9EAEF5 !important;
-}
-:root[data-theme="dark"] input[type="checkbox"]:checked::after,:root[data-theme="dark"] .ck:checked::after {
-  content:"";width:8px;height:4px;border-left:2px solid #17191F;border-bottom:2px solid #17191F;transform:rotate(-45deg);margin-top:-2px;
-}
-:root[data-theme="dark"] :is(button,a,.btn,.link) {box-shadow:none !important}
-:root[data-theme="dark"] .btn {background:#9EAEF5 !important;color:#17191F !important;border:0 !important}
-:root[data-theme="dark"] .btn.ghost {background:transparent !important;color:#B8C4FF !important;border:1px solid #59627B !important}
-:root[data-theme="dark"] :is(button:disabled,input:disabled,select:disabled,textarea:disabled,[aria-disabled="true"]) {
-  opacity:.42 !important;box-shadow:none !important;outline:0 !important;filter:none !important;
-}
-:root[data-theme="dark"] :is(button:disabled,.btn:disabled) {background:transparent !important;border-color:transparent !important;color:#858C99 !important}
-:root[data-theme="dark"] :is(.brow.is-paid,.brow.paid,.is-paid) {background:#292C34 !important;color:#A8ADB8 !important;box-shadow:none !important;border:0 !important;opacity:.62}
-:root[data-theme="dark"] .sum-left {background:#2B3040 !important;color:#BFCBFF !important;box-shadow:none !important;border:0 !important}
-:root[data-theme="dark"] .sum .sum-left b {color:#B8C4FF !important}
-:root[data-theme="dark"] .web-actions button {background:#303647 !important;color:#BFCBFF !important;border:0 !important}
-:root[data-theme="dark"] .web-actions button:first-child {background:#9EAEF5 !important;color:#17191F !important}
-:root[data-theme="dark"] :focus-visible {outline:2px solid #9EAEF5 !important;outline-offset:2px}
 
-</style>
 
-<style id="user-requested-darkmode-tweaks">
-/* 공통: 메모 개수는 숫자만 표시 */
-.memo-badge{min-width:20px;justify-content:center;padding:2px 6px!important;font-size:11px!important}
-/* 다크 모드 세부 색상 및 요소 정리 */
-:root[data-theme="dark"]{--line:#222635!important;--line-strong:#222635!important}
-:root[data-theme="dark"] .detail{background:#31374D!important;border:0!important;outline:0!important;box-shadow:none!important;border-radius:14px!important}
-:root[data-theme="dark"] .task+.task:before{background:#222635!important}
-:root[data-theme="dark"] .task.done{opacity:1!important;background:transparent!important}
-:root[data-theme="dark"] .task.done .trow,
-:root[data-theme="dark"] .task.done .detail{background:transparent!important}
-:root[data-theme="dark"] .task.done .t,
-:root[data-theme="dark"] .task.done .meta,
-:root[data-theme="dark"] .task.done .ttl{color:#A8AEC2!important}
-:root[data-theme="dark"] .seg{background:#2B3041!important;border:0!important;box-shadow:none!important}
-:root[data-theme="dark"] .seg button{background:transparent!important;color:#A8AEC2!important;border:0!important}
-:root[data-theme="dark"] .seg button[aria-pressed="true"]{background:#34415E!important;color:#B8C4FF!important}
-:root[data-theme="dark"] .ph .pt{color:#F0F1F4!important}
-:root[data-theme="dark"] .ph .ps{color:#34415E!important}
-:root[data-theme="dark"] .badge,
-:root[data-theme="dark"] .memo-badge{background:#34415E!important;color:#B8C4FF!important;border:0!important}
-:root[data-theme="dark"] .filters>.btn.ghost,
-:root[data-theme="dark"] .filters button[data-act="toggle-manage"],
-:root[data-theme="dark"] .filters button[data-act="toggle-add"]{background:#34415E!important;color:#B8C4FF!important;border:0!important}
-:root[data-theme="dark"] .brow .detail,
-:root[data-theme="dark"] .brow .bvals,
-:root[data-theme="dark"] .brow .bgrid{box-shadow:none!important}
-:root[data-theme="dark"] .brow,
-:root[data-theme="dark"] .brow *{box-shadow:none!important}
-</style>
+
 
 </head><body>
 <title>🤵‍♂️승현❤️소영👰‍♀️</title>
@@ -308,6 +207,7 @@ ul.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
 .ck:disabled{cursor:not-allowed;opacity:.6}
 .ttl{flex:1;min-width:0;background:none;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:2px}
 .ttl .t{font-weight:500;overflow-wrap:anywhere}
+.ttl .pickline{display:block;font-size:12px;line-height:1.4;color:var(--pick);font-weight:650;overflow-wrap:anywhere}
 .ttl .meta{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .ttl .meta .late{color:var(--warn);font-weight:600}
 .task.done .t{color:#888888;text-decoration:none}
@@ -475,29 +375,7 @@ input,textarea,select{font-size:16px;}
     <p id="login-error" role="alert" style="margin:0;color:#b42318;font-size:13px"></p>
   </form>
 </div>
-<style>
-/* Login screen follows the device/browser color scheme. */
-@media (prefers-color-scheme: dark) {
-  html, body { background:#11151B !important; color:#E8ECF2 !important; }
-  #login-gate { color:#E8ECF2 !important; }
-  #firebase-login {
-    background:#191F27 !important;
-    border-color:#394452 !important;
-    color:#E8ECF2 !important;
-    box-shadow:0 8px 30px #00000040 !important;
-  }
-  #firebase-login p:not(#login-error) { color:#AAB4C2 !important; }
-  #firebase-login label { color:#E8ECF2 !important; }
-  #firebase-login input {
-    background:#111820 !important;
-    color:#F4F6FA !important;
-    border-color:#566170 !important;
-    color-scheme:dark;
-  }
-  #firebase-login input::placeholder { color:#AAB4C2 !important; }
-  #firebase-login button { background:#B58AE6 !important; color:#1E0B33 !important; }
-}
-</style>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -874,12 +752,12 @@ function taskRow(t,wd,mv){
   var dl=cd||(wd?deadline(wd,t.m):null);
   var late=dl&&!t.done&&dl<today();
   var due=cd?fmt(cd)+"까지":(dl?(t.m===0?"예식 당일":fmt(dl)+"까지"):monthLabel(t.m));
-  var meta=esc(catName(t.cat))+(t.who?" · "+esc(t.who):"")+" · "+(late?'<span class="late">'+due+" · 기한 지남</span>":due)+(t.notes.length?' <span class="memo-badge">' +t.notes.length+'</span>':"");
+  var meta=esc(catName(t.cat))+(t.who?" · "+esc(t.who):"")+" · "+(late?'<span class="late">'+due+" · 기한 지남</span>":due);
   var pk=t.notes.filter(function(n){return n.picked;});
-  if(pk.length)meta+=' · <span class="pick">'+esc(pk.map(function(n){return n.name||(n.text||"").split("\n")[0].slice(0,24)||"이름 없음";}).join(", "))+'</span>';
-  var h='<li class="task'+(t.done?" done":"")+'">'+
+  var pickedLine=pk.length?'<span class="pickline">'+esc(pk.map(function(n){return n.name||(n.text||"").split("\n")[0].slice(0,24)||"이름 없음";}).join(", "))+'</span>':"";
+  var h='<li class="task'+(t.done?" done":"")+(t.done&&S.filter.status==="done"?" done-view":"")+'">'+
     '<div class="trow"><input type="checkbox" class="ck" id="ck-'+t.id+'" data-act="done" data-id="'+t.id+'" '+(t.done?"checked":"")+' '+dis()+' aria-label="'+esc(t.title)+' 완료">'+
-    '<button type="button" class="ttl" data-act="expand" data-id="'+t.id+'" aria-expanded="'+open+'"><span class="t">'+esc(t.title)+'</span><span class="meta">'+meta+'</span></button></div>';
+    '<button type="button" class="ttl" data-act="expand" data-id="'+t.id+'" aria-expanded="'+open+'"><span class="title-line"><span class="t">'+esc(t.title)+'</span>'+(t.notes.length?'<span class="memo-badge">'+t.notes.length+'</span>':'')+'</span>'+pickedLine+'<span class="meta">'+meta+'</span></button></div>'; 
   if(open){
     var del='<button type="button" class="link danger" data-act="del-task" data-id="'+t.id+'" '+dis()+'>'+(S.confirm==="t:"+t.id?"한 번 더 눌러 삭제":"항목 삭제")+'</button>';
     var hint=t.hint?'<p class="hint">'+esc(t.hint)+'</p>':"";
@@ -1321,18 +1199,189 @@ renderAll();
 })();
 </script>
 
-<style id="pastel-dark-mode-fix">
-:root[data-theme="dark"]{color-scheme:dark!important;--bg:#171A24;--surface:#222635;--fg:#EEF0F8;--muted:#A8AEC2;--line:#3A4052;--line-strong:#4A5268;--accent:#9BAEFF;--accent-fg:#171A24;--accent-soft:#2A3150;--accent-ink:#AFC0FF;--brand:#AFC0FF;--pick:#C2A8F4;--pick-fg:#211A30;--pick-soft:#352B4B;--ok:#9BCDB8;--warn:#E5B27F}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark!important;--bg:#171A24;--surface:#222635;--fg:#EEF0F8;--muted:#A8AEC2;--line:#3A4052;--line-strong:#4A5268;--accent:#9BAEFF;--accent-fg:#171A24;--accent-soft:#2A3150;--accent-ink:#AFC0FF;--brand:#AFC0FF;--pick:#C2A8F4;--pick-fg:#211A30;--pick-soft:#352B4B;--ok:#9BCDB8;--warn:#E5B27F}}
-:root[data-theme="dark"] body{background:linear-gradient(180deg,#1A1E2A,#171A24)!important;color:#EEF0F8!important}
-:root[data-theme="dark"] .notice,:root[data-theme="dark"] .addbox,:root[data-theme="dark"] .brow,:root[data-theme="dark"] .nbox,:root[data-theme="dark"] .nview,:root[data-theme="dark"] .board,:root[data-theme="dark"] .manage,:root[data-theme="dark"] .msec,:root[data-theme="dark"] .list,:root[data-theme="dark"] .sum,:root[data-theme="dark"] .bvals,:root[data-theme="dark"] .web-tools,:root[data-theme="dark"] .sum>div,:root[data-theme="dark"] ul.list{background:#222635!important;color:#EEF0F8!important;border-color:#3A4052!important;box-shadow:0 5px 20px rgba(0,0,0,.20)!important}
-:root[data-theme="dark"] .mast{background:linear-gradient(135deg,#293451,#342C49)!important;color:#F1F2FA!important;box-shadow:0 8px 24px rgba(0,0,0,.24)!important}
-:root[data-theme="dark"] .tabs{background:#2B3041!important}:root[data-theme="dark"] .tabs a{color:#C7CBE0!important}
-:root[data-theme="dark"] input,:root[data-theme="dark"] select,:root[data-theme="dark"] textarea{background:#191E2B!important;color:#EEF0F8!important;border-color:#46506A!important;color-scheme:dark}
-:root[data-theme="dark"] .task,:root[data-theme="dark"] .trow{background:transparent!important;color:#EEF0F8!important}
-:root[data-theme="dark"] .task.done,:root[data-theme="dark"] .is-paid{background:#2A3040!important;color:#9CA4BA!important}
-:root[data-theme="dark"] .web-actions button{background:#30374B!important;color:#EEF0F8!important;border-color:#4A5268!important}:root[data-theme="dark"] .web-actions button:first-child{background:#AFC0FF!important;color:#171A24!important;border-color:#AFC0FF!important}
-:root[data-theme="dark"] #firebase-login{background:#222635!important;color:#EEF0F8!important;border-color:#46506A!important}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background:linear-gradient(180deg,#1A1E2A,#171A24)!important;color:#EEF0F8!important}:root:not([data-theme="light"]) .notice,:root:not([data-theme="light"]) .addbox,:root:not([data-theme="light"]) .brow,:root:not([data-theme="light"]) .nbox,:root:not([data-theme="light"]) .nview,:root:not([data-theme="light"]) .board,:root:not([data-theme="light"]) .manage,:root:not([data-theme="light"]) .msec,:root:not([data-theme="light"]) .list,:root:not([data-theme="light"]) .sum,:root:not([data-theme="light"]) .bvals,:root:not([data-theme="light"]) .web-tools,:root:not([data-theme="light"]) .sum>div,:root:not([data-theme="light"]) ul.list{background:#222635!important;color:#EEF0F8!important;border-color:#3A4052!important;box-shadow:0 5px 20px rgba(0,0,0,.20)!important}:root:not([data-theme="light"]) .mast{background:linear-gradient(135deg,#293451,#342C49)!important;color:#F1F2FA!important}:root:not([data-theme="light"]) .tabs{background:#2B3041!important}:root:not([data-theme="light"]) .tabs a{color:#C7CBE0!important}:root:not([data-theme="light"]) input,:root:not([data-theme="light"]) select,:root:not([data-theme="light"]) textarea{background:#191E2B!important;color:#EEF0F8!important;border-color:#46506A!important;color-scheme:dark}:root:not([data-theme="light"]) .task,:root:not([data-theme="light"]) .trow{background:transparent!important;color:#EEF0F8!important}:root:not([data-theme="light"]) .task.done,:root:not([data-theme="light"]) .is-paid{background:#2A3040!important;color:#9CA4BA!important}:root:not([data-theme="light"]) #firebase-login{background:#222635!important;color:#EEF0F8!important;border-color:#46506A!important}}
+
+
+<style id="unified-theme-colors">
+/* Theme contract: light mode remains the reference design; dark mode changes colors only. */
+:root {
+  color-scheme: light;
+  --bg:#F6F7FC; --surface:#FFFFFF; --fg:#26324A; --muted:#7B8498;
+  --line:#DDDDDD; --line-strong:#D8DDE8; --accent:#718CEB;
+  --accent-fg:#FFFFFF; --accent-soft:#EEF1FF; --accent-ink:#657FE0;
+  --brand:#657FE0; --pick:#A88AE8; --pick-fg:#FFFFFF; --pick-soft:#F2ECFF;
+  --ok:#8BBEAA; --warn:#D49A62;
+}
+:root[data-theme="dark"] {
+  color-scheme:dark;
+  --bg:#171A24; --surface:#222635; --fg:#EEF0F8; --muted:#A8AEC2;
+  --line:#222635; --line-strong:#222635; --accent:#AFC0FF;
+  --accent-fg:#171A24; --accent-soft:#2B3041; --accent-ink:#B8C4FF;
+  --brand:#B8C4FF; --pick:#C2A8F4; --pick-fg:#211A30; --pick-soft:#34415E;
+  --ok:#9BCDB8; --warn:#E5B27F;
+}
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme:dark;
+    --bg:#171A24; --surface:#222635; --fg:#EEF0F8; --muted:#A8AEC2;
+    --line:#222635; --line-strong:#222635; --accent:#AFC0FF;
+    --accent-fg:#171A24; --accent-soft:#2B3041; --accent-ink:#B8C4FF;
+    --brand:#B8C4FF; --pick:#C2A8F4; --pick-fg:#211A30; --pick-soft:#34415E;
+    --ok:#9BCDB8; --warn:#E5B27F;
+  }
+}
+:root[data-theme="dark"] body { background:var(--bg)!important; color:var(--fg)!important; }
+@media (prefers-color-scheme:dark) { :root:not([data-theme="light"]) body { background:var(--bg)!important; color:var(--fg)!important; } }
+:root[data-theme="dark"] :is(.notice,.addbox,.brow,.nbox,.nview,.board,.manage,.msec,.list,.sum,.bvals,.web-tools,.sum>div,ul.list,.detail,.empty,.phase .empty) { background:var(--surface)!important; color:var(--fg)!important; border-color:var(--line)!important; box-shadow:none!important; }
+@media (prefers-color-scheme:dark) { :root:not([data-theme="light"]) :is(.notice,.addbox,.brow,.nbox,.nview,.board,.manage,.msec,.list,.sum,.bvals,.web-tools,.sum>div,ul.list,.detail,.empty,.phase .empty) { background:var(--surface)!important; color:var(--fg)!important; border-color:var(--line)!important; box-shadow:none!important; } }
+:root[data-theme="dark"] :is(.mast,.tabs,.seg,.filters) { background:var(--surface)!important; color:var(--fg)!important; border-color:var(--line)!important; box-shadow:none!important; }
+:root[data-theme="dark"] :is(.ph,.ph .pt,.ttl,.ttl .t,.detail label,.hint,.count,.cnt,.pn,.label,.field-label,.bname,.bvals dd,.sum b) { color:var(--fg)!important; }
+:root[data-theme="dark"] :is(.ph .ps,.ttl .meta,.detail label,.hint,.muted,.notes .nl,.count small,.sum small,.bvals dt,.who,.nl2,.mvnote) { color:var(--muted)!important; }
+:root[data-theme="dark"] .ph .ps { color:#34415E!important; }
+:root[data-theme="dark"] :is(.task,.trow) { background:transparent!important; color:var(--fg)!important; border-color:transparent!important; box-shadow:none!important; }
+:root[data-theme="dark"] .task+.task:before { background:var(--line)!important; }
+:root[data-theme="dark"] .detail { background:#31374D!important; border:0!important; outline:0!important; box-shadow:none!important; }
+:root[data-theme="dark"] .task.done { background:transparent!important; opacity:1!important; }
+:root[data-theme="dark"] .task.done :is(.trow,.detail) { background:transparent!important; }
+:root[data-theme="dark"] .task.done :is(.t,.meta,.ttl,.ttl .t) { color:#A8AEC2!important; }
+:root[data-theme="dark"] :is(.seg,.filters .seg,.tabs) { background:#2B3041!important; border-color:transparent!important; }
+:root[data-theme="dark"] :is(.tabs a,.tabs button,.seg button) { color:#A8AEC2!important; }
+:root[data-theme="dark"] :is(.tabs .active,.tabs [aria-current="page"],.seg button[aria-pressed="true"]) { background:#34415E!important; color:#B8C4FF!important; }
+:root[data-theme="dark"] .memo-badge,
+:root[data-theme="dark"] :is(.badge,.editflag,.pickflag,.pickbtn,.now-label,.current-label) { background:#34415E!important; color:#B8C4FF!important; border-color:transparent!important; }
+:root[data-theme="dark"] :is(.btn,.web-actions button,.madd .btn,.manage .btn) { background:#34415E!important; color:#B8C4FF!important; border-color:transparent!important; box-shadow:none!important; }
+:root[data-theme="dark"] :is(.btn:disabled,button:disabled,input:disabled,select:disabled,textarea:disabled,[aria-disabled="true"]) { background:transparent!important; color:#7F879D!important; border-color:transparent!important; opacity:.48!important; box-shadow:none!important; outline:0!important; }
+:root[data-theme="dark"] :is(input:not([type="checkbox"]),select,textarea,.min) { background:#191E2B!important; color:var(--fg)!important; border-color:var(--line)!important; box-shadow:none!important; color-scheme:dark; }
+:root[data-theme="dark"] :is(input,textarea)::placeholder { color:#8E96AA!important; opacity:1; }
+:root[data-theme="dark"] input[type="checkbox"],:root[data-theme="dark"] .ck { accent-color:#B8C4FF!important; opacity:1!important; }
+:root[data-theme="dark"] input[type="checkbox"] { width:19px; height:19px; }
+:root[data-theme="dark"] .brow.is-paid,:root[data-theme="dark"] .brow.paid,:root[data-theme="dark"] .is-paid { background:transparent!important; color:#A8AEC2!important; border-color:transparent!important; box-shadow:none!important; opacity:.55!important; }
+:root[data-theme="dark"] .sum>div,:root[data-theme="dark"] .bvals { box-shadow:none!important; outline:0!important; }
+:root[data-theme="dark"] .sum .sum-left { background:#2B3041!important; color:#B8C4FF!important; }
+:root[data-theme="dark"] .sum .sum-left b { color:#B8C4FF!important; }
+:root[data-theme="dark"] .detail .nbox,:root[data-theme="dark"] .detail .nview { background:#31374D!important; color:var(--fg)!important; border-color:var(--line)!important; box-shadow:none!important; }
+:root[data-theme="dark"] #firebase-login { background:var(--surface)!important; color:var(--fg)!important; border-color:var(--line-strong)!important; }
+:root[data-theme="dark"] #firebase-login :is(label,p) { color:var(--fg)!important; }
+:root[data-theme="dark"] :focus-visible { outline:2px solid #AFC0FF!important; outline-offset:2px; }
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) #firebase-login { background:var(--surface)!important; color:var(--fg)!important; border-color:var(--line-strong)!important; }
+}
+</style>
+
+<script id="system-theme-sync">
+(function(){
+  var root=document.documentElement;
+  var media=window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+  function applySystemTheme(){ root.setAttribute('data-theme', media && media.matches ? 'dark' : 'light'); }
+  applySystemTheme();
+  if(media){ if(media.addEventListener) media.addEventListener('change', applySystemTheme); else if(media.addListener) media.addListener(applySystemTheme); }
+})();
+</script>
+
+<style id="dark-filter-toolbar-background-fix">
+/* 다크 모드: 필터/관리 도구 전체 래퍼의 묶음 배경만 제거하고 각 컨트롤은 기존 색상 유지 */
+:root[data-theme="dark"] .filters {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .filters {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
+</style>
+
+
+<style id="final-choice-emphasis">
+/* 최종 선택은 제목 아래 별도 칩으로 강조하되, 라이트/다크 모드 모두 같은 구조 유지 */
+.ttl .pickline{
+  display:inline-flex!important;
+  align-self:flex-start!important;
+  align-items:center!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  margin-top:5px!important;
+  padding:4px 9px!important;
+  border:1px solid #D8C8F5!important;
+  border-left:1px solid #D8C8F5!important;
+  border-radius:7px!important;
+  background:#F5F0FF!important;
+  color:#7655B5!important;
+  font-size:12px!important;
+  font-weight:750!important;
+  line-height:1.45!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+:root[data-theme="dark"] .ttl .pickline{
+  background:#34415E!important;
+  color:#D4C4FF!important;
+  border-color:#59678B!important;
+  border-left-color:#59678B!important;
+  box-shadow:inset 0 0 0 1px rgba(194,168,244,.08)!important;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .ttl .pickline{
+    background:#34415E!important;
+    color:#D4C4FF!important;
+    border-color:#59678B!important;
+    border-left-color:#59678B!important;
+    box-shadow:inset 0 0 0 1px rgba(194,168,244,.08)!important;
+  }
+}
+</style>
+
+<style id="final-choice-detail-text-emphasis">
+/* 상세 화면에서도 최종 결정된 업체명과 설명에 최종 선택 강조색 적용 */
+.detail .nview.picked .nvh strong,
+.detail .nview.picked .nvt {
+  color:#7655B5!important;
+  font-weight:700!important;
+}
+:root[data-theme="dark"] .detail .nview.picked .nvh strong,
+:root[data-theme="dark"] .detail .nview.picked .nvt {
+  color:#B8C4FF!important;
+}
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) .detail .nview.picked .nvh strong,
+  :root:not([data-theme="light"]) .detail .nview.picked .nvt {
+    color:#B8C4FF!important;
+  }
+}
+</style>
+
+<style id="category-management-shadow-cleanup">
+/* 카테고리 관리 영역과 입력 필드의 불필요한 그림자 제거 */
+.manage, .manage .msec, .manage .mrow, .manage .mf,
+.manage input, .manage input.min, .manage input:focus, .manage input:focus-visible,
+.manage .madd, .manage .madd input {
+  box-shadow:none!important;
+  filter:none!important;
+}
+:root[data-theme="dark"] .manage :is(input,textarea,select,.min),
+:root[data-theme="dark"] .manage :is(input,textarea,select,.min):focus,
+:root[data-theme="dark"] .manage :is(input,textarea,select,.min):focus-visible {
+  box-shadow:none!important;
+  outline-offset:0;
+}
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) .manage :is(input,textarea,select,.min),
+  :root:not([data-theme="light"]) .manage :is(input,textarea,select,.min):focus,
+  :root:not([data-theme="light"]) .manage :is(input,textarea,select,.min):focus-visible {
+    box-shadow:none!important;
+  }
+}
 </style>
 </body></html>
+<style id="final-requested-tweaks">
+.task.done>.trow{opacity:.7!important}
+:root[data-theme="dark"] .ttl .pickline{color:#B8C4FF!important}
+</style>
+
+<style id="done-filter-opacity-override">
+/* 완료 항목은 전체 보기에서만 흐리게, 완료 탭에서는 정상 불투명도로 표시 */
+.task.done:not(.done-view)>.trow{opacity:.7!important}
+.task.done.done-view>.trow{opacity:1!important}
+</style>
