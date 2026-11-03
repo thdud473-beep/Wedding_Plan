@@ -129,6 +129,36 @@ ul.list{overflow:visible!important;padding:5px 12px!important}
   border:1px solid var(--line-strong)!important;
 }
 </style>
+
+<style id="budget-checkbox-match-todo">
+/* 예산 결제완료 체크박스를 할 일 체크박스와 동일한 스타일로 통일 */
+.brow .paid input.ck,
+.brow .paid input[type="checkbox"].ck {
+  appearance:none!important; -webkit-appearance:none!important;
+  width:22px!important; height:22px!important; min-width:22px!important;
+  padding:0!important; margin:1px 0 0!important;
+  border:1.5px solid var(--line-strong)!important;
+  border-radius:6px!important; background:var(--surface)!important;
+  box-shadow:none!important; display:grid!important; place-content:center!important;
+  opacity:1!important; flex:none!important; cursor:pointer;
+}
+.brow .paid input.ck:checked,
+.brow .paid input[type="checkbox"].ck:checked {
+  background:#718CEB!important; border-color:#718CEB!important;
+}
+.brow .paid input.ck:checked::after,
+.brow .paid input[type="checkbox"].ck:checked::after {
+  content:""; width:6px; height:11px; border:solid #fff;
+  border-width:0 2px 2px 0; transform:translateY(-1px) rotate(45deg);
+}
+:root[data-theme="dark"] .brow .paid input.ck {
+  border-color:#AEBBEA!important; background:var(--surface)!important;
+}
+:root[data-theme="dark"] .brow .paid input.ck:checked {
+  background:#B8C4FF!important; border-color:#B8C4FF!important;
+}
+:root[data-theme="dark"] .brow .paid input.ck:checked::after { border-color:#222635; }
+</style>
 </head><body>
 <title>🤵‍♂️승현❤️소영👰‍♀️</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1446,3 +1476,41 @@ renderAll();
   border-color:#E1E5EF!important;
 }
 </style>
+<style id="requested-budget-dark-and-mobile-tabs">
+/* 1) 다크모드 결제 완료 항목은 기존 표면색을 유지하고 80% 불투명도 */
+:root[data-theme="dark"] .brow.is-paid { opacity:.8!important; background:var(--surface)!important; color:var(--fg)!important; }
+@media (prefers-color-scheme:dark) { :root:not([data-theme="light"]) .brow.is-paid { opacity:.8!important; background:var(--surface)!important; color:var(--fg)!important; } }
+/* 2) 다크모드에서도 계획/예약금/잔금/비용 영역은 투명 배경 */
+:root[data-theme="dark"] .brow .bvals,
+:root[data-theme="dark"] .brow .bvals>div { background:transparent!important; box-shadow:none!important; border:0!important; }
+@media (prefers-color-scheme:dark) { :root:not([data-theme="light"]) .brow .bvals, :root:not([data-theme="light"]) .brow .bvals>div { background:transparent!important; box-shadow:none!important; border:0!important; } }
+/* 3) 예산 체크박스를 할 일 체크박스처럼 원형으로 */
+.brow .paid input.ck,.brow .paid input[type="checkbox"].ck { border-radius:50%!important; width:22px!important; height:22px!important; min-width:22px!important; }
+.brow .paid input.ck:checked,.brow .paid input[type="checkbox"].ck:checked { background:#718CEB!important; border-color:#718CEB!important; }
+:root[data-theme="dark"] .brow .paid input.ck:checked { background:#718CEB!important; border-color:#718CEB!important; }
+/* 4) 모바일 탭: 평소에는 본문 안의 둥근 세그먼트, 스크롤로 상단에 붙으면 화면 끝까지 확장 */
+@media(max-width:600px){
+  .tabs { position:sticky!important; top:0!important; z-index:20!important; width:100%!important; margin:0!important; padding:4px!important; box-sizing:border-box!important; border-radius:14px!important; background:#ECEFF8!important; gap:8px!important; }
+  .tabs a { flex:1 1 0!important; text-align:center!important; border-radius:11px!important; padding:12px 8px!important; }
+  .tabs.is-stuck { width:calc(100% + 24px)!important; margin-left:-12px!important; margin-right:-12px!important; padding:4px 12px!important; border-radius:0!important; }
+  :root[data-theme="dark"] .tabs { background:#2B3041!important; }
+  :root[data-theme="dark"] .tabs.is-stuck { border-radius:0!important; }
+}
+</style>
+<script id="mobile-tabs-sticky-state">
+(function(){
+  function setup(){
+    var nav=document.querySelector('.tabs'); if(!nav) return;
+    function update(){
+      if(window.matchMedia('(max-width:600px)').matches){
+        nav.classList.toggle('is-stuck', nav.getBoundingClientRect().top <= 0);
+      } else nav.classList.remove('is-stuck');
+    }
+    window.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+    update();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',setup); else setup();
+})();
+</script>
+
