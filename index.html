@@ -94,6 +94,41 @@ ul.list{overflow:visible!important;padding:5px 12px!important}
 
 
 
+
+<style id="mobile-tabs-edge-to-edge">
+/* 모바일 상단 탭을 화면 좌우 끝까지 확장하고 바깥 라운딩 제거 */
+@media (max-width:600px){
+  .tabs{
+    width:calc(100% + 24px)!important;
+    margin-left:-12px!important;
+    margin-right:-12px!important;
+    box-sizing:border-box!important;
+    border-radius:0!important;
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+}
+</style>
+
+<style id="paid-budget-opacity-only">
+/* 결제 완료 항목도 기존 카드 색상을 유지하고 카드 전체만 70% 투명도로 표시 */
+.brow.is-paid{
+  background:var(--surface)!important;
+  border:1px solid var(--line)!important;
+  color:var(--fg)!important;
+  box-shadow:0 5px 20px rgba(20,20,20,.045)!important;
+  opacity:.7!important;
+}
+.brow.is-paid .bname,.brow.is-paid .bvals dt,.brow.is-paid .bvals dd,
+.brow.is-paid .who,.brow.is-paid .paid,.brow.is-paid .nl2,.brow.is-paid .editflag{
+  color:inherit!important;
+}
+.brow.is-paid .btn,.brow.is-paid .link,.brow.is-paid .ic{opacity:1!important}
+.brow.is-paid input,.brow.is-paid textarea{
+  color:var(--fg)!important;background:var(--bg)!important;
+  border:1px solid var(--line-strong)!important;
+}
+</style>
 </head><body>
 <title>🤵‍♂️승현❤️소영👰‍♀️</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -255,6 +290,8 @@ ul.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
 .brows{display:flex;flex-direction:column;gap:8px}
 .brow{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
 .brow input[type=text],.brow input[type=number]{width:100%;background:var(--bg);border:1px solid var(--line-strong);border-radius:8px;padding:7px 9px;min-height:36px;font-variant-numeric:tabular-nums;color:var(--fg)}
+.brow textarea.bmemo{width:100%;background:var(--bg);border:1px solid var(--line-strong);border-radius:8px;padding:9px 10px;min-height:76px;resize:vertical;color:var(--fg);line-height:1.5}
+.bmemo-view{margin:0;padding:9px 11px;background:var(--accent-soft);border-radius:9px;color:var(--muted);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
 .brow label.f{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--muted);min-width:0}
 .bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .bname{font-size:15px;overflow-wrap:anywhere}
@@ -904,7 +941,7 @@ function brow(r,i,n){
   var paid='<label class="paid"><input type="checkbox" class="ck" id="bk-'+r.id+'" data-act="b-paid" data-id="'+r.id+'" '+(r.paid?"checked":"")+' '+off+'>결제 완료</label>';
   if(!edit){
     return '<div class="brow'+(r.paid?' is-paid':'')+'"><strong class="bname">'+esc(r.name||"이름 없음")+'</strong>'+
-      '<dl class="bvals"><div><dt>계획</dt><dd>'+fmtMan(r.planned)+'</dd></div><div><dt>예약금</dt><dd>'+fmtMan(r.deposit)+'</dd></div><div><dt>잔금</dt><dd>'+fmtMan(r.balance)+'</dd></div><div><dt>비용</dt><dd>'+(act?num(act)+"만원":"-")+'</dd></div></dl>'+lg+
+      '<dl class="bvals"><div><dt>계획</dt><dd>'+fmtMan(r.planned)+'</dd></div><div><dt>예약금</dt><dd>'+fmtMan(r.deposit)+'</dd></div><div><dt>잔금</dt><dd>'+fmtMan(r.balance)+'</dd></div><div><dt>비용</dt><dd>'+(act?num(act)+"만원":"-")+'</dd></div></dl>'+(r.memo?'<p class="bmemo-view">'+esc(r.memo)+'</p>': '')+lg+
       '<div class="drow">'+paid+'<span class="spacer"></span><button type="button" class="btn ghost small" data-act="b-edit-on" data-id="'+r.id+'" '+off+'>수정</button></div></div>';
   }
   return '<div class="brow'+(r.paid?' is-paid':'')+'"><span class="editflag">수정 중</span>'+
@@ -912,7 +949,8 @@ function brow(r,i,n){
     '<div class="bgrid">'+
     '<label class="f">계획 (만원)<input type="number" inputmode="numeric" min="0" id="bp-'+r.id+'" data-act="b-planned" data-id="'+r.id+'" value="'+esc(r.planned==null?"":r.planned)+'" '+off+'></label>'+
     '<label class="f">예약금 (만원)<input type="number" inputmode="numeric" min="0" id="bd-'+r.id+'" data-act="b-deposit" data-id="'+r.id+'" value="'+esc(r.deposit==null?"":r.deposit)+'" '+off+'></label>'+
-    '<label class="f">잔금 (만원)<input type="number" inputmode="numeric" min="0" id="bb-'+r.id+'" data-act="b-balance" data-id="'+r.id+'" value="'+esc(r.balance==null?"":r.balance)+'" '+off+'></label></div>'+lg+
+    '<label class="f">잔금 (만원)<input type="number" inputmode="numeric" min="0" id="bb-'+r.id+'" data-act="b-balance" data-id="'+r.id+'" value="'+esc(r.balance==null?"":r.balance)+'" '+off+'></label></div>'+
+    '<label class="f">메모<textarea class="bmemo" id="bm-'+r.id+'" data-act="b-memo" data-id="'+r.id+'" rows="3" placeholder="견적 내용, 결제 조건, 업체 연락처 등을 기록해 보세요" '+off+'>'+esc(r.memo||"")+'</textarea></label>'+lg+
     '<div class="drow">'+paid+'</div>'+
     '<div class="drow"><span class="nl2">순서</span>'+
     '<button type="button" class="ic" data-act="b-up" data-id="'+r.id+'" aria-label="위로" '+((i===0||off)?"disabled":"")+'>▲</button>'+
@@ -1118,6 +1156,7 @@ root.addEventListener("input",function(e){
   else if(act==="b-planned")debounced("bp:"+id,function(){return save("budget",id,{planned:v===""?null:Number(v)});});
   else if(act==="b-deposit")debounced("bd:"+id,function(){return save("budget",id,{deposit:v===""?null:Number(v),actual:null});});
   else if(act==="b-balance")debounced("bb:"+id,function(){return save("budget",id,{balance:v===""?null:Number(v),actual:null});});
+  else if(act==="b-memo")debounced("bm:"+id,function(){return save("budget",id,{memo:v});});
   else if(act==="notice-text")S.nd.notice=v;
   else if(act==="b-total")debounced("bt",function(){return saveSettings({budget:v===""?null:Number(v)});});
 });
@@ -1384,4 +1423,26 @@ renderAll();
 /* 완료 항목은 전체 보기에서만 흐리게, 완료 탭에서는 정상 불투명도로 표시 */
 .task.done:not(.done-view)>.trow{opacity:.7!important}
 .task.done.done-view>.trow{opacity:1!important}
+</style>
+
+<style id="budget-paid-and-values-final-fix">
+/* 예산: 결제 완료도 별도 색상 없이 기존 항목 디자인을 유지하고 항목 전체만 70% 투명도 */
+.brow.is-paid{
+  background:#FFFFFF!important;
+  color:#26324A!important;
+  opacity:.7!important;
+}
+/* 계획·예약금·잔금·비용 묶음은 별도 배경 없이 항목 카드 배경이 보이도록 */
+.brow .bvals{
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  outline:0!important;
+}
+/* 결제 완료 상태에서도 입력칸 자체에 별도 회색 배경을 주지 않음 */
+.brow.is-paid input,.brow.is-paid textarea{
+  background:#F8F9FD!important;
+  color:#26324A!important;
+  border-color:#E1E5EF!important;
+}
 </style>
